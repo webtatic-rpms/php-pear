@@ -1,5 +1,14 @@
-%{?scl:%scl_package php-pear}
-%{!?scl:%global pkg_name %{name}}
+%if 0%{?scl:1}
+%scl_package php-pear
+%global _name %{name}
+%global php_name %{?scl_prefix}php
+%else
+%global pkg_name %{name}
+%global _name php-pear
+%global php_name php
+%global _root_bindir %{_bindir}
+%global _root_sysconfdir %{_sysconfdir}
+%endif
 
 %global peardir %{_datadir}/pear
 %global metadir %{_localstatedir}/lib/pear
@@ -16,7 +25,7 @@
 %global with_tests       %{?_with_tests:1}%{!?_with_tests:0}
 
 Summary: PHP Extension and Application Repository framework
-Name: %{?scl_prefix}php-pear
+Name: %{php_name}-pear
 Version: 1.9.4
 Release: 1%{?dist}
 Epoch: 1
@@ -61,30 +70,28 @@ BuildRequires:  %{?scl_prefix}php-pear(pear.phpunit.de/PHPUnit)
 %endif
 %{?scl:Requires: %scl_runtime}
 
-Provides: %{?scl_prefix}php-pear(Console_Getopt) = %{getoptver}
-Provides: %{?scl_prefix}php-pear(Archive_Tar) = %{arctarver}
-Provides: %{?scl_prefix}php-pear(PEAR) = %{version}
-Provides: %{?scl_prefix}php-pear(Structures_Graph) = %{structver}
-Provides: %{?scl_prefix}php-pear(XML_Util) = %{xmlutil}
-%{!?scl:Obsoletes: php-pear-XML-Util < %{xmlutil}}
-Provides:  %{?scl_prefix}php-pear-XML-Util = %{xmlutil}
-
 Requires:  %{?scl_prefix}php-cli
 # phpci detected extension
 # PEAR (date, spl always builtin):
-Requires:  %{?scl_prefix}php-ftp
-Requires:  %{?scl_prefix}php-pcre
-Requires:  %{?scl_prefix}php-posix
-Requires:  %{?scl_prefix}php-tokenizer
-Requires:  %{?scl_prefix}php-xml
-Requires:  %{?scl_prefix}php-zlib
+Requires:  %{php_name}-ftp
+Requires:  %{php_name}-pcre
+Requires:  %{php_name}-posix
+Requires:  %{php_name}-tokenizer
+Requires:  %{php_name}-xml
+Requires:  %{php_name}-zlib
 # Console_Getopt: pcre
 # Archive_Tar: pcre, posix, zlib
-Requires:  %{?scl_prefix}php-bz2
+Requires:  %{php_name}-bz2
 # Structures_Graph: none
 # XML_Util: pcre
 # optional: overload and xdebug
 
+Provides: %{name}(Console_Getopt) = %{getoptver}
+Provides: %{name}(Archive_Tar) = %{arctarver}
+Provides: %{name}(PEAR) = %{version}
+Provides: %{name}(Structures_Graph) = %{structver}
+Provides: %{name}(XML_Util) = %{xmlutil}
+Provides: %{name}-XML-Util = %{xmlutil}
 
 %description
 PEAR is a framework and distribution system for reusable PHP
@@ -169,7 +176,7 @@ done
 
 
 install -m 644 -c %{SOURCE13} \
-           $RPM_BUILD_ROOT%{_root_sysconfdir}/rpm/macros.%{name}
+           $RPM_BUILD_ROOT%{_root_sysconfdir}/rpm/macros.%{_name}
 
 # apply patches on installed PEAR tree
 pushd $RPM_BUILD_ROOT%{peardir} 
@@ -282,7 +289,7 @@ fi
 %{metadir}/pkgxml
 %{_bindir}/*
 %config(noreplace) %{_sysconfdir}/pear.conf
-%{_root_sysconfdir}/rpm/macros.%{name}
+%{_root_sysconfdir}/rpm/macros.%{_name}
 %dir %{_localstatedir}/cache/php-pear
 %dir %{_localstatedir}/www/html
 %dir %{_sysconfdir}/pear
