@@ -5,7 +5,7 @@
 %else
 %global pkg_name %{name}
 %global _name php-pear
-%global php_name php
+%global php_name php56w
 %global _root_bindir %{_bindir}
 %global _root_sysconfdir %{_sysconfdir}
 %endif
@@ -92,6 +92,16 @@ Provides: %{name}(PEAR) = %{version}
 Provides: %{name}(Structures_Graph) = %{structver}
 Provides: %{name}(XML_Util) = %{xmlutil}
 Provides: %{name}-XML-Util = %{xmlutil}
+%if 0%{!?scl:1}
+# Additional Provides for the original package name
+Provides: php-pear = %{version}-%{release}
+Provides: php-pear(Console_Getopt) = %{getoptver}
+Provides: php-pear(Archive_Tar) = %{arctarver}
+Provides: php-pear(PEAR) = %{version}
+Provides: php-pear(Structures_Graph) = %{structver}
+Provides: php-pear(XML_Util) = %{xmlutil}
+Provides: php-pear-XML-Util = %{xmlutil}
+%endif
 
 %description
 PEAR is a framework and distribution system for reusable PHP
@@ -309,5 +319,5 @@ fi
 
 %changelog
 * Tue Feb 04 2014 Andy Thompson <andy@webtatic.com> 1:1.9.4-1
-- Port el7 php-pear
-- Update to support SCL
+- Fork php-pear
+- Override non-SCL packages to php56w
