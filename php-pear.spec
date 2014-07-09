@@ -27,7 +27,7 @@
 Summary: PHP Extension and Application Repository framework
 Name: %{php_name}-pear
 Version: 1.9.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 # PEAR, Archive_Tar, XML_Util are BSD
 # Console_Getopt is PHP
@@ -64,13 +64,13 @@ Patch1: php-pear-metadata.patch
 
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: %{?scl_prefix}php-cli >= 5.1.0-1, %{?scl_prefix}php-xml, gnupg
+BuildRequires: %{php_name}-cli >= 5.1.0-1, %{php_name}-xml, gnupg
 %if %{with_tests}
 BuildRequires:  %{?scl_prefix}php-pear(pear.phpunit.de/PHPUnit)
 %endif
 %{?scl:Requires: %scl_runtime}
 
-Requires:  %{?scl_prefix}php-cli
+Requires:  %{php_name}-cli
 # phpci detected extension
 # PEAR (date, spl always builtin):
 Requires:  %{php_name}-ftp
@@ -308,6 +308,9 @@ fi
 
 
 %changelog
+* Wed Jul 09 2014 Andy Thompson <andy@webtatic.com> 1:1.9.4-2
+- Fix PHP build dependency
+
 * Tue Feb 04 2014 Andy Thompson <andy@webtatic.com> 1:1.9.4-1
 - Port el7 php-pear
 - Update to support SCL
