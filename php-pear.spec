@@ -309,6 +309,7 @@ fi
 * Sun Jun 14 2015 Andy Thompson <andy@webtatic.com> 1:1.9.5-1
 - Update to PEAR-1.9.5
 - Update dependencies to latest versions
+- Update install-pear.php to latest version
 
 * Wed Jul 09 2014 Andy Thompson <andy@webtatic.com> 1:1.9.4-2
 - Fix PHP build dependency
