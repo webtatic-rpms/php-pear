@@ -26,8 +26,8 @@
 
 Summary: PHP Extension and Application Repository framework
 Name: %{php_name}-pear
-Version: 1.9.4
-Release: 2%{?dist}
+Version: 1.9.5
+Release: 1%{?dist}
 Epoch: 1
 # PEAR, Archive_Tar, XML_Util are BSD
 # Console_Getopt is PHP
@@ -308,6 +308,9 @@ fi
 
 
 %changelog
+* Sun Jun 14 2015 Andy Thompson <andy@webtatic.com> 1:1.9.5-1
+- Update to PEAR-1.9.5
+
 * Wed Jul 09 2014 Andy Thompson <andy@webtatic.com> 1:1.9.4-2
 - Fix PHP build dependency
 
