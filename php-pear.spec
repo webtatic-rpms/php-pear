@@ -310,6 +310,7 @@ fi
 - Update to PEAR-1.9.5
 - Update dependencies to latest versions
 - Update install-pear.php to latest version
+- Remove PHP 4 compatibility from install-pear.php
 
 * Wed Jul 09 2014 Andy Thompson <andy@webtatic.com> 1:1.9.4-2
 - Fix PHP build dependency
