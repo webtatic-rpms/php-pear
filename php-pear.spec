@@ -53,13 +53,6 @@ Source32: peardev.1
 # https://github.com/pear/pear-core/pull/16
 Source33: pear.conf.5
 
-
-# From RHEL: ignore REST cache creation failures as non-root user (#747361)
-# TODO See https://github.com/pear/pear-core/commit/dfef86e05211d2abc7870209d69064d448ef53b3#PEAR/REST.php
-Patch0: php-pear-1.9.4-restcache.patch
-# Relocate Metadata
-Patch1: php-pear-metadata.patch
-
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: %{php_name}-cli >= 5.1.0-1, %{php_name}-xml, gnupg
@@ -113,7 +106,6 @@ done
 cp %{SOURCE1} %{SOURCE30} %{SOURCE31} %{SOURCE32} %{SOURCE33} .
 
 # apply patches on used PEAR during install
-%patch1 -p0 -b .metadata
 
 
 %build
@@ -179,9 +171,7 @@ install -m 644 -c %{SOURCE13} \
 # apply patches on installed PEAR tree
 pushd $RPM_BUILD_ROOT%{peardir} 
  pushd PEAR
-  %__patch -s --no-backup --fuzz 0 -p0 < %{PATCH0}
  popd
-  %__patch -s --no-backup --fuzz 0 -p0 < %{PATCH1}
 popd
 
 # Why this file here ?
@@ -309,6 +299,7 @@ fi
 * Sun Nov 08 2015 Andy Thompson <andy@webtatic.com> 1:1.10.1-1
 - Update to PEAR-1.10.1
 - Update dependencies to latest version
+- Remove metadata and restcache patches applied upstream
 
 * Sun Jun 14 2015 Andy Thompson <andy@webtatic.com> 1:1.9.5-1
 - Update to PEAR-1.9.5
