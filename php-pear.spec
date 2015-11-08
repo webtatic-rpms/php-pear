@@ -13,9 +13,9 @@
 %global peardir %{_datadir}/pear
 %global metadir %{_localstatedir}/lib/pear
 
-%global getoptver 1.4.0
-%global arctarver 1.3.16
-%global structver 1.1.0
+%global getoptver 1.4.1
+%global arctarver 1.4.0
+%global structver 1.1.1
 %global xmlutil   1.3.0
 
 # Tests are only run with rpmbuild --with tests
@@ -308,6 +308,7 @@ fi
 %changelog
 * Sun Nov 08 2015 Andy Thompson <andy@webtatic.com> 1:1.10.1-1
 - Update to PEAR-1.10.1
+- Update dependencies to latest version
 
 * Sun Jun 14 2015 Andy Thompson <andy@webtatic.com> 1:1.9.5-1
 - Update to PEAR-1.9.5
