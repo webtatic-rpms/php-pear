@@ -13,12 +13,10 @@
 %global peardir %{_datadir}/pear
 %global metadir %{_localstatedir}/lib/pear
 
-%global getoptver 1.3.1
-%global arctarver 1.3.11
-# https://pear.php.net/bugs/bug.php?id=19367
-# Structures_Graph 1.0.4 - incorrect FSF address
-%global structver 1.0.4
-%global xmlutil   1.2.1
+%global getoptver 1.4.1
+%global arctarver 1.4.0
+%global structver 1.1.1
+%global xmlutil   1.3.0
 
 # Tests are only run with rpmbuild --with tests
 # Can't be run in mock / koji because PEAR is the first package
@@ -26,8 +24,8 @@
 
 Summary: PHP Extension and Application Repository framework
 Name: %{php_name}-pear
-Version: 1.9.4
-Release: 2%{?dist}
+Version: 1.10.1
+Release: 1%{?dist}
 Epoch: 1
 # PEAR, Archive_Tar, XML_Util are BSD
 # Console_Getopt is PHP
@@ -54,13 +52,6 @@ Source31: pecl.1
 Source32: peardev.1
 # https://github.com/pear/pear-core/pull/16
 Source33: pear.conf.5
-
-
-# From RHEL: ignore REST cache creation failures as non-root user (#747361)
-# TODO See https://github.com/pear/pear-core/commit/dfef86e05211d2abc7870209d69064d448ef53b3#PEAR/REST.php
-Patch0: php-pear-1.9.4-restcache.patch
-# Relocate Metadata
-Patch1: php-pear-metadata.patch
 
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -125,7 +116,6 @@ done
 cp %{SOURCE1} %{SOURCE30} %{SOURCE31} %{SOURCE32} %{SOURCE33} .
 
 # apply patches on used PEAR during install
-%patch1 -p0 -b .metadata
 
 
 %build
@@ -191,9 +181,7 @@ install -m 644 -c %{SOURCE13} \
 # apply patches on installed PEAR tree
 pushd $RPM_BUILD_ROOT%{peardir} 
  pushd PEAR
-  %__patch -s --no-backup --fuzz 0 -p0 < %{PATCH0}
  popd
-  %__patch -s --no-backup --fuzz 0 -p0 < %{PATCH1}
 popd
 
 # Why this file here ?
@@ -318,6 +306,17 @@ fi
 
 
 %changelog
+* Sun Nov 08 2015 Andy Thompson <andy@webtatic.com> 1:1.10.1-1
+- Update to PEAR-1.10.1
+- Update dependencies to latest version
+- Remove metadata and restcache patches applied upstream
+
+* Sun Jun 14 2015 Andy Thompson <andy@webtatic.com> 1:1.9.5-1
+- Update to PEAR-1.9.5
+- Update dependencies to latest versions
+- Update install-pear.php to latest version
+- Remove PHP 4 compatibility from install-pear.php
+
 * Wed Jul 09 2014 Andy Thompson <andy@webtatic.com> 1:1.9.4-2
 - Fix PHP build dependency
 
