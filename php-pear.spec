@@ -3,9 +3,8 @@
 %global _name %{name}
 %global php_name %{?scl_prefix}php
 %else
-%global pkg_name %{name}
 %global _name php-pear
-%global php_name php56w
+%global php_name %{?php_name}%{!?php_name:php}
 %global _root_bindir %{_bindir}
 %global _root_sysconfdir %{_sysconfdir}
 %endif
@@ -306,6 +305,9 @@ fi
 
 
 %changelog
+* Sat Jan 02 2016 Andy Thompson <andy@webtatic.com> 1:1.10.1-2
+- Support php_name insertion for reuse
+
 * Sun Nov 08 2015 Andy Thompson <andy@webtatic.com> 1:1.10.1-1
 - Update to PEAR-1.10.1
 - Update dependencies to latest version
