@@ -1,11 +1,5 @@
 name: php-pear
 profiles:
-  php54w:
-    define:
-      php_name: php54w
-  php55w:
-    define:
-      php_name: php55w
   php56w:
     define:
       php_name: php56w
@@ -15,28 +9,22 @@ profiles:
   php71w:
     define:
       php_name: php71w
+  php72w:
+    define:
+      php_name: php72w
 builds:
   webtatic-el7:
     target: el7-development
     arch: [x86_64]
     profiles:
-      - php54w
-      - php55w
       - php56w
       - php70w
       - php71w
+      - php72w
   webtatic-el6:
     target: el6-development
     arch: [x86_64, i386]
     profiles:
-      - php54w
-      - php55w
       - php56w
       - php70w
       - php71w
-  webtatic-el5:
-    target: el6-development
-    arch: [x86_64, i386]
-    profiles:
-      - php54w
-      - php55w
