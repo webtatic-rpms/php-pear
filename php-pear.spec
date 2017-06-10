@@ -13,9 +13,9 @@
 %global metadir %{_localstatedir}/lib/pear
 
 %global getoptver 1.4.1
-%global arctarver 1.4.0
+%global arctarver 1.4.2
 %global structver 1.1.1
-%global xmlutil   1.3.0
+%global xmlutil   1.4.2
 
 # Tests are only run with rpmbuild --with tests
 # Can't be run in mock / koji because PEAR is the first package
@@ -23,7 +23,7 @@
 
 Summary: PHP Extension and Application Repository framework
 Name: %{php_name}-pear
-Version: 1.10.1
+Version: 1.10.4
 Release: 1%{?dist}
 Epoch: 1
 # PEAR, Archive_Tar, XML_Util are BSD
@@ -305,7 +305,9 @@ fi
 
 
 %changelog
-* Sat Jan 02 2016 Andy Thompson <andy@webtatic.com> 1:1.10.1-2
+* Sat Jun 10 2017 Andy Thompson <andy@webtatic.com> 1:1.10.4-1
+- Update PEAR to 1.10.4
+- Update dependencies to latest versions
 - Support php_name insertion for reuse
 
 * Sun Nov 08 2015 Andy Thompson <andy@webtatic.com> 1:1.10.1-1
