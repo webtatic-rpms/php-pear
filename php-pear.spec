@@ -52,6 +52,8 @@ Source32: peardev.1
 # https://github.com/pear/pear-core/pull/16
 Source33: pear.conf.5
 
+Patch1: Archive_Tar-1.4.2-php72.patch
+
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: %{php_name}-cli >= 5.1.0-1, %{php_name}-xml, gnupg
@@ -115,7 +117,7 @@ done
 cp %{SOURCE1} %{SOURCE30} %{SOURCE31} %{SOURCE32} %{SOURCE33} .
 
 # apply patches on used PEAR during install
-
+patch --no-backup --fuzz 0 -p1 < %{PATCH1}
 
 %build
 # This is an empty build section.
@@ -178,9 +180,8 @@ install -m 644 -c %{SOURCE13} \
            $RPM_BUILD_ROOT%{_root_sysconfdir}/rpm/macros.%{_name}
 
 # apply patches on installed PEAR tree
-pushd $RPM_BUILD_ROOT%{peardir} 
- pushd PEAR
- popd
+pushd $RPM_BUILD_ROOT%{peardir}
+  patch --no-backup --fuzz 0 -p1 < %{PATCH1}
 popd
 
 # Why this file here ?
@@ -309,6 +310,7 @@ fi
 - Update PEAR to 1.10.4
 - Update dependencies to latest versions
 - Support php_name insertion for reuse
+- Add patch for PHP 7.2 compatibility
 
 * Sun Nov 08 2015 Andy Thompson <andy@webtatic.com> 1:1.10.1-1
 - Update to PEAR-1.10.1
